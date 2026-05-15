@@ -39,3 +39,7 @@ next-env.d.ts
 # sqlite (local DB file — keep folder via .gitkeep)
 /data/*.db
 /data/*.db-*
+
+# staged CSV uploads (temp)
+data/uploads/*
+!data/uploads/.gitkeep
