@@ -13,6 +13,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "csv-parse": "^5.6.0",
     "better-sqlite3": "^11.9.1",
     "drizzle-orm": "^0.40.1",
     "next": "^15.3.2",

@@ -2,6 +2,7 @@ import {
   sqliteTable,
   text,
   integer,
+  uniqueIndex,
   index,
 } from "drizzle-orm/sqlite-core";
 
@@ -33,9 +34,21 @@ export const contacts = sqliteTable(
       .$defaultFn(() => new Date()),
   },
   (table) => [
-    index("contacts_list_email_idx").on(table.contactListId, table.email),
+    uniqueIndex("contacts_list_email_unique").on(
+      table.contactListId,
+      table.email,
+    ),
   ],
 );
+
+/** Staged CSV upload: raw file on disk until user commits or session expires */
+export const importSessions = sqliteTable("import_sessions", {
+  id: text("id").primaryKey(),
+  originalFilename: text("original_filename").notNull(),
+  storedPath: text("stored_path").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+  expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
+});
 
 export const suppressionEntries = sqliteTable("suppression_entries", {
   id: integer("id").primaryKey({ autoIncrement: true }),
